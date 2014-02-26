@@ -2,7 +2,13 @@
 #################################################
 /app/Config/database.php
 /app/tmp
-/lib/Cake/Console/Templates/skel/tmp/
+/app/Plugin
+/app/Console
+/app/Locale
+/app/Test
+/app/Vendor
+/nbproject
+/lib
 /plugins
 /vendors
 /build
