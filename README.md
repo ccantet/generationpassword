@@ -1,50 +1,53 @@
-<<<<<<< HEAD
-CakePHP
-=======
-
-[![CakePHP](http://cakephp.org/img/cake-logo.png)](http://www.cakephp.org)
-
-CakePHP is a rapid development framework for PHP which uses commonly known design patterns like Active Record, Association Data Mapping, Front Controller and MVC.
-Our primary goal is to provide a structured framework that enables PHP users at all levels to rapidly develop robust web applications, without any loss to flexibility.
-
-Some Handy Links
-----------------
-
-[CakePHP](http://www.cakephp.org) - The rapid development PHP framework
-
-[CookBook](http://book.cakephp.org) - THE CakePHP user documentation; start learning here!
-
-[API](http://api.cakephp.org) - A reference to CakePHP's classes
-
-[Plugins](http://plugins.cakephp.org/) - A repository of extensions to the framework
-
-[The Bakery](http://bakery.cakephp.org) - Tips, tutorials and articles
-
-[Community Center](http://community.cakephp.org) - A source for everything community related
-
-[Training](http://training.cakephp.org) - Join a live session and get skilled with the framework
-
-[CakeFest](http://cakefest.org) - Don't miss our annual CakePHP conference
-
-[Cake Software Foundation](http://cakefoundation.org) - Promoting development related to CakePHP
-
-Get Support!
-------------
-
-[#cakephp](http://webchat.freenode.net/?channels=#cakephp) on irc.freenode.net - Come chat with us, we have cake
-
-[Google Group](https://groups.google.com/group/cake-php) - Community mailing list and forum
-
-[GitHub Issues](https://github.com/cakephp/cakephp/issues) - Got issues? Please tell us!
-
-[Roadmaps](https://github.com/cakephp/cakephp/wiki#roadmaps) - Want to contribute? Get involved!
-
-[![Bake Status](https://secure.travis-ci.org/cakephp/cakephp.png?branch=master)](http://travis-ci.org/cakephp/cakephp)
-
-![Cake Power](https://raw.github.com/cakephp/cakephp/master/lib/Cake/Console/Templates/skel/webroot/img/cake.power.gif)
-=======
-generationpassword
+GenerationPassword
 ==================
 
-Application web de génération password, développer à l'occasion du défi sur developpez.com
->>>>>>> origin/master
+Application web de génération et de test de sécurité de mot de passe, développée à l'occasion du défi sur developpez.com
+
+Avant tout, une démonstration du fonctionnement de l'application est disponible à cette adresse : [http://generationpassword.url.ph](http://generationpassword.url.ph/)
+
+Informations Générales 
+=======================
+
+Le site a été développé avec le framework [CakePhP](http://cakephp.org/).
+
+On peut dénombrer 2 classes principales dans ce projet se trouvant dans le dossier [app/Model](https://github.com/ccantet/generationpassword/tree/master/app/Model) :
+
+* **PasswordEntity** : classe du password. Contient deux principales méthodes qui sont :
+    * **generatePassword** : Méthode de génération du mot de passe
+    * **testPassword** : Méthode qui va tester le mot de passe
+* **ManipulableString** : classe qui propose des méthodes de manipulation sur une chaîne de caractère, dans l'objectif de proposer un mot de passe fort
+
+Les autres classes se trouvant dans app/Model sont :
+
+* **Toolbox** : classe servant de "boîte à outils" contenant des méthodes statiques plutôt pratiques 
+* **Word** : Modèle permettant d'accéder à la table words, qui contient l'ensemble des mots des dictionnaires français et anglais
+* **CommonPassword** : Modèle permettant d'accéder à la table common_passwords contenant les 10 000 pires mots de passe existant (soit les 10 000 mots de passe les plus utilisés). Obtenu sur le site [xato.net](https://xato.net/passwords/more-top-worst-passwords/)
+
+Une API complète de l'application est disponible à cette adresse : [http://generationpassword.url.ph/doc](http://generationpassword.url.ph/doc)
+
+Comment est généré le mot de passe ?
+======================================
+
+Le mot de passe est généré à partir d'une phrase choisi par l'utilisateur. C'est phrase sert de base à la génération du mot de passe.
+
+Qu'en fait l'algorithme ?
+-------------------------
+
+* Premièrement, il met aléatoirement la première lettre de chaque mot qui compose la phrase
+* Si l'utilisateur a indiqué qu'on devait transformer cette phrase, on remplace aléatoirement des lettres par leur équivalent (ex: a => @, u => µ...) et on met aléatoirement certaines lettres en majuscule
+* Ensuite, il supprime les espaces en les remplacant par des chiffres (qui suivent un ordre logique) et un caractère spécial (ordre non défini) 
+* Si le mot de passe est trop petit (c-a-d de longueur inférieure à la longueur minimum requise) des caractères aléatoires sont ajoutés en début et/ou en fin de chaîne jusqu'à ce que celui-ci atteigne la taille requise
+* Enfin, on s'assure que le caractère comporte au minimum un caractère minuscule, majuscule, un chiffre et un caractère spécial. Si ce n'est pas le cas, pour chaque type manquant, on en ajoute aléatoirement un au début ou à la fin du mot de passe déjà créé
+
+A l'issue de la génération du mot de passe, celui-ci est directement testé.
+
+Comment est testé le niveau de sécurité d'un mot de passe ?
+============================================================
+
+La sécurité d'un mot de passe dépend avant tout et surtout de sa longueur. Ainsi un mot de passe de 8 caractères, peut-importe sa composition, sera toujours considéré comme très faible, alors qu'à contrario un mot de passe de plus de 16 caractères sera considéré comme très bon.
+Un mot de passe est également automatiquement considéré comme très faible si c'est un mot du dictionnaire (français ou anglais), où s'il fait parti des 10 000 passwords les plus utilisés au monde.
+
+Le niveau de sécurité dépend du temps qu'il faudrait à un ordinateur de bureau actuel (4 coeurs, effectuant 200 000 000 000 de test à la seconde) pour casser le mot de passe par force brute.
+
+Des conseils sont également affiché à l'utilisateur pour améliorer la qualité de son mot de passe (ajouter un chiffre, allonger sa taille...)
+
