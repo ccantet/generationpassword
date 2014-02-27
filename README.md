@@ -33,7 +33,7 @@ Le mot de passe est généré à partir d'une phrase choisi par l'utilisateur. C
 Qu'en fait l'algorithme ?
 -------------------------
 
-* Premièrement, il met aléatoirement la première lettre de chaque mot qui compose la phrase
+* Premièrement, il met aléatoirement en majuscule les premières lettres de chaque mot qui compose la phrase
 * Si l'utilisateur a indiqué qu'on devait transformer cette phrase, on remplace aléatoirement des lettres par leur équivalent (ex: a => @, u => µ...) et on met aléatoirement certaines lettres en majuscule
 * Ensuite, il supprime les espaces en les remplacant par des chiffres (qui suivent un ordre logique) et un caractère spécial (ordre non défini) 
 * Si le mot de passe est trop petit (c-a-d de longueur inférieure à la longueur minimum requise) des caractères aléatoires sont ajoutés en début et/ou en fin de chaîne jusqu'à ce que celui-ci atteigne la taille requise
